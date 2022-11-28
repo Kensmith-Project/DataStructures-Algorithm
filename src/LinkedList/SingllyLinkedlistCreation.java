@@ -76,27 +76,104 @@ public class SingllyLinkedlistCreation {
             }
 
             ListNode current = previous.next;
-            node.next= current;
             previous.next= node;
+            node.next= current;
+
 
         }
 
     }
 
+   public ListNode DeleteFirst(){
+        if(head ==null){
+            return null;
+        }
+        ListNode temp = head;
+        head = head.next;
+        temp.next = null;
+        return temp;
+
+   }
+    public ListNode DeleteLast(){
+
+        if(head ==null|| head.next== null){
+            return null;
+        }
+       ListNode current = head;
+        ListNode prev = null;
+        while(current.next != null){
+            prev = current;
+            current= current.next;
+
+        }
+        prev.next = null;
+        return current;
+
+    }
+    public void DeleteAtPosition(int position){
+        if(position==1){
+            head = head.next;
+        }else{
+            ListNode previous = head;
+            int count = 1;
+            while(count < position-1){
+                previous = previous.next;
+                count++;
+            }
+            ListNode current = previous.next;
+            previous.next = current.next;
+        }
+
+    }
+    public  boolean searchElement (int ele){
+        ListNode current = head;
+        while(current != null){
+            if(current.data== ele){
+                return true;
+
+            }
+            current = current.next;
+        }
+        return false;
+    }
+    public ListNode reversed(ListNode head){
+        if(head == null){
+            return null;
+        }
+        ListNode prev = null;
+        ListNode current = head;
+        ListNode next = null;
+        while(current != null){
+            next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+        return prev;
+    }
+
     public static void main(String[] args) {
         SingllyLinkedlistCreation sing= new SingllyLinkedlistCreation();
-        sing.head= new ListNode(10);
+        ListNode head= new ListNode(10);
+//
+//        ListNode second= new ListNode(1);
+//        ListNode third= new ListNode(8);
+//        ListNode fourth= new ListNode(11);
+//        sing.head.next= second;
+//        second.next= third;
+//        third.next= fourth;
+//        sing.insertFirstNode(25);
+//        sing.insertAtEbdNode(13);
+        sing.insertAtPosition(1,3);
+        sing.insertAtPosition(2,5);
+        sing.insertAtPosition(1,6);
+        sing.insertAtPosition(1,70);
+        sing.DeleteAtPosition(3);
 
-        ListNode second= new ListNode(1);
-        ListNode third= new ListNode(8);
-        ListNode fourth= new ListNode(11);
-        sing.head.next= second;
-        second.next= third;
-        third.next= fourth;
-        sing.insertFirstNode(25);
-        sing.insertAtEbdNode(13);
       sing.display();
-      sing.insertAtPosition(3,70);
+        System.out.println(sing.searchElement(1));
+        sing.reversed(head);
+
         System.out.println("LikedList length = "+ sing.length());
 
     }
